@@ -17,9 +17,9 @@ const GameCard = ({ title, description, icon, path, comingSoon = false }) => {
       <h3>{title}</h3>
       <p>{description}</p>
       {comingSoon ? (
-        <span className="badge badge-soon">Coming Soon</span>
+        <span className="badge badge-soon">敬请期待</span>
       ) : (
-        <button className="btn btn-primary">Play Now</button>
+        <button className="btn btn-primary">立即开始</button>
       )}
     </motion.div>
   );
@@ -29,27 +29,27 @@ const Home = () => {
   return (
     <div className="home-container">
       <header className="hero-section animate-fade-in">
-        <h1 className="hero-title">Party <span>Hub</span></h1>
-        <p className="hero-subtitle">The ultimate destination for digital party games.</p>
+        <h1 className="hero-title">聚会 <span>中心</span></h1>
+        <p className="hero-subtitle">数字聚会游戏的终极目的地。</p>
       </header>
       
       <main className="game-grid container">
         <GameCard 
-          title="Who is the Spy? (谁是卧底)"
-          description="Unmask the spy among you in this classic game of deduction and deception."
+          title="谁是卧底"
+          description="在经典的推理与欺骗游戏中揭开潜伏在你们中间的卧底。"
           icon="🕵️‍♂️"
           path="/spy"
         />
         <GameCard 
-          title="Undercover"
-          description="A fast-paced word association game for groups."
+          title="卧底 (Undercover)"
+          description="节奏快速的词项关联游戏，适合多人聚会。"
           icon="🕶️"
           path="/undercover"
           comingSoon={true}
         />
         <GameCard 
-          title="Draw & Guess"
-          description="Express your creativity and guess what others are drawing."
+          title="你画我猜"
+          description="展示你的创意并猜出别人的绘画内容。"
           icon="🎨"
           path="/draw"
           comingSoon={true}

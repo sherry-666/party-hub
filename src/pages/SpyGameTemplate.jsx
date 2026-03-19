@@ -8,8 +8,8 @@ const SpyGameTemplate = () => {
   return (
     <div className="spy-container">
       <nav className="game-nav animate-fade-in">
-        <button className="btn btn-secondary" onClick={() => navigate('/')}>← Exit Game</button>
-        <div className="game-status glass-card">Room: #8824 | 6/8 Players</div>
+        <button className="btn btn-secondary" onClick={() => navigate('/')}>← 退出游戏</button>
+        <div className="game-status glass-card">房间: #8824 | 6/8 玩家</div>
       </nav>
 
       <main className="game-layout">
@@ -20,32 +20,32 @@ const SpyGameTemplate = () => {
             transition={{ duration: 0.5 }}
             className="spy-logo"
           >🕵️‍♂️</motion.div>
-          <h1>Who is the Spy?</h1>
-          <p>谁是卧底</p>
+          <h1>谁是卧底</h1>
+          <p>Who is the Spy</p>
         </header>
 
         <section className="game-content glass-card animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <div className="template-placeholder">
             <div className="placeholder-icon">⚙️</div>
-            <h3>Game Engine Template Ready</h3>
-            <p>The core game logic and UI will be implemented here.</p>
+            <h3>游戏引擎模板就绪</h3>
+            <p>核心游戏逻辑和 UI 将在此处实现。</p>
             
             <div className="setup-preview">
               <div className="setup-item">
-                <span className="label">Total Players</span>
+                <span className="label">总人数</span>
                 <span className="value">8</span>
               </div>
               <div className="setup-item">
-                <span className="label">Spy Count</span>
+                <span className="label">卧底人数</span>
                 <span className="value">1</span>
               </div>
               <div className="setup-item">
-                <span className="label">Civilian Count</span>
+                <span className="label">平民人数</span>
                 <span className="value">7</span>
               </div>
             </div>
 
-            <button className="btn btn-primary btn-lg">Start Setup (Coming Soon)</button>
+            <button className="btn btn-primary btn-lg">开始设置 (即将推出)</button>
           </div>
         </section>
       </main>

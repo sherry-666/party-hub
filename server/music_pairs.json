@@ -1,0 +1,64 @@
+{
+  "pairs": [
+    {
+      "id": 1,
+      "category": "Pop",
+      "normal": { "title": "Sunny Groove", "file": "pair_01_normal.wav" },
+      "spy": { "title": "Midnight Drive", "file": "pair_01_spy.wav" }
+    },
+    {
+      "id": 2,
+      "category": "Electronic",
+      "normal": { "title": "Neon Pulse", "file": "pair_02_normal.wav" },
+      "spy": { "title": "Digital Rain", "file": "pair_02_spy.wav" }
+    },
+    {
+      "id": 3,
+      "category": "Jazz",
+      "normal": { "title": "Blue Note", "file": "pair_03_normal.wav" },
+      "spy": { "title": "Velvet Lounge", "file": "pair_03_spy.wav" }
+    },
+    {
+      "id": 4,
+      "category": "Classical",
+      "normal": { "title": "Spring Waltz", "file": "pair_04_normal.wav" },
+      "spy": { "title": "Autumn Sonata", "file": "pair_04_spy.wav" }
+    },
+    {
+      "id": 5,
+      "category": "Rock",
+      "normal": { "title": "Thunder Road", "file": "pair_05_normal.wav" },
+      "spy": { "title": "Electric Storm", "file": "pair_05_spy.wav" }
+    },
+    {
+      "id": 6,
+      "category": "Lo-Fi",
+      "normal": { "title": "Rainy Café", "file": "pair_06_normal.wav" },
+      "spy": { "title": "Starlit Study", "file": "pair_06_spy.wav" }
+    },
+    {
+      "id": 7,
+      "category": "Funk",
+      "normal": { "title": "Disco Fever", "file": "pair_07_normal.wav" },
+      "spy": { "title": "Bass Groove", "file": "pair_07_spy.wav" }
+    },
+    {
+      "id": 8,
+      "category": "Ambient",
+      "normal": { "title": "Ocean Waves", "file": "pair_08_normal.wav" },
+      "spy": { "title": "Forest Dawn", "file": "pair_08_spy.wav" }
+    },
+    {
+      "id": 9,
+      "category": "Latin",
+      "normal": { "title": "Salsa Night", "file": "pair_09_normal.wav" },
+      "spy": { "title": "Bossa Nova", "file": "pair_09_spy.wav" }
+    },
+    {
+      "id": 10,
+      "category": "Cinematic",
+      "normal": { "title": "Epic Quest", "file": "pair_10_normal.wav" },
+      "spy": { "title": "Shadow Chase", "file": "pair_10_spy.wav" }
+    }
+  ]
+}

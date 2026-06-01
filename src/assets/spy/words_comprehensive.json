@@ -1,6 +1,7 @@
 {
   "categories": [
     {
+      "language": "zh",
       "name": "饮食男女",
       "description": "味道、口感、颜色极度接近，产生“吃货”间的内讧。",
       "words": [
@@ -697,6 +698,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "科技互联",
       "description": "App与硬件，极易陷入“黑话”陷阱。",
       "words": [
@@ -1393,6 +1395,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "限制级",
       "description": "18+禁忌类，包装、触感相似，挑战尴尬极限。",
       "words": [
@@ -1999,6 +2002,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "学科知识",
       "description": "文理工医，看似高端实则迷糊，伪学霸飙戏场。",
       "words": [
@@ -2635,6 +2639,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "娱乐明星",
       "description": "国民偶像，利用人设相似度考验敏感度。",
       "words": [
@@ -3061,6 +3066,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "游戏二次元",
       "description": "热门IP，技能外形相似，极具针对性。",
       "words": [
@@ -3504,6 +3510,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "运动健身",
       "description": "器械动作关联，画面感极强的辩论战场。",
       "words": [
@@ -3834,6 +3841,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "旅游地理",
       "description": "地标与城市，空间感和文化底蕴的终极博弈。",
       "words": [
@@ -4175,6 +4183,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "影视经典",
       "description": "热剧电影大乱斗，极度相似的剧情和角色。",
       "words": [
@@ -4541,6 +4550,7 @@
       ]
     },
     {
+      "language": "zh",
       "name": "玄学与心理",
       "description": "从西方占星到心理学术语言，无法捉摸的伪装极境。",
       "words": [
@@ -4873,6 +4883,1636 @@
           "招魂",
           "驱邪",
           "除魔"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Food & Drink",
+      "description": "Tastes, textures and looks so close that foodies turn on each other.",
+      "words": [
+        [
+          "Latte",
+          "Mocha",
+          "Cappuccino",
+          "Macchiato"
+        ],
+        [
+          "Pizza",
+          "Calzone",
+          "Stromboli",
+          "Focaccia"
+        ],
+        [
+          "Whisky",
+          "Bourbon",
+          "Scotch",
+          "Rye"
+        ],
+        [
+          "Cabbage",
+          "Lettuce",
+          "Bok choy",
+          "Kale"
+        ],
+        [
+          "Soy sauce",
+          "Fish sauce",
+          "Oyster sauce",
+          "Hoisin"
+        ],
+        [
+          "Donut",
+          "Bagel",
+          "Pretzel",
+          "Croissant"
+        ],
+        [
+          "Ramen",
+          "Udon",
+          "Soba",
+          "Pho"
+        ],
+        [
+          "Tofu",
+          "Tempeh",
+          "Seitan",
+          "Paneer"
+        ],
+        [
+          "Sushi",
+          "Sashimi",
+          "Nigiri",
+          "Maki"
+        ],
+        [
+          "Burger",
+          "Slider",
+          "Sandwich",
+          "Wrap"
+        ],
+        [
+          "Espresso",
+          "Ristretto",
+          "Lungo",
+          "Americano"
+        ],
+        [
+          "Brie",
+          "Camembert",
+          "Gouda",
+          "Cheddar"
+        ],
+        [
+          "Mojito",
+          "Mai tai",
+          "Daiquiri",
+          "Margarita"
+        ],
+        [
+          "Brownie",
+          "Blondie",
+          "Fudge",
+          "Cake pop"
+        ],
+        [
+          "Steak",
+          "Brisket",
+          "Ribeye",
+          "Sirloin"
+        ],
+        [
+          "Cilantro",
+          "Parsley",
+          "Basil",
+          "Mint"
+        ],
+        [
+          "Cinnamon",
+          "Nutmeg",
+          "Clove",
+          "Allspice"
+        ],
+        [
+          "Pancake",
+          "Waffle",
+          "Crepe",
+          "French toast"
+        ],
+        [
+          "Cookie",
+          "Biscuit",
+          "Scone",
+          "Shortbread"
+        ],
+        [
+          "Ketchup",
+          "Mustard",
+          "Mayo",
+          "Sriracha"
+        ],
+        [
+          "Yogurt",
+          "Kefir",
+          "Skyr",
+          "Quark"
+        ],
+        [
+          "Lemonade",
+          "Iced tea",
+          "Sparkling water",
+          "Soda"
+        ],
+        [
+          "Curry",
+          "Stew",
+          "Goulash",
+          "Tagine"
+        ],
+        [
+          "Apple",
+          "Pear",
+          "Quince",
+          "Loquat"
+        ],
+        [
+          "Lobster",
+          "Crab",
+          "Shrimp",
+          "Crayfish"
+        ],
+        [
+          "Vodka",
+          "Gin",
+          "Tequila",
+          "Rum"
+        ],
+        [
+          "Granola",
+          "Muesli",
+          "Oatmeal",
+          "Porridge"
+        ],
+        [
+          "Salami",
+          "Pepperoni",
+          "Chorizo",
+          "Soppressata"
+        ],
+        [
+          "Cheesecake",
+          "Tiramisu",
+          "Panna cotta",
+          "Flan"
+        ],
+        [
+          "Tortilla",
+          "Pita",
+          "Naan",
+          "Roti"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Tech & Internet",
+      "description": "Apps and gadgets that beg for jargon traps.",
+      "words": [
+        [
+          "Slack",
+          "Teams",
+          "Discord",
+          "Zoom"
+        ],
+        [
+          "iPhone",
+          "Pixel",
+          "Galaxy",
+          "OnePlus"
+        ],
+        [
+          "Chrome",
+          "Firefox",
+          "Safari",
+          "Edge"
+        ],
+        [
+          "VS Code",
+          "IntelliJ",
+          "Xcode",
+          "Sublime"
+        ],
+        [
+          "Python",
+          "Ruby",
+          "Go",
+          "Rust"
+        ],
+        [
+          "AWS",
+          "Azure",
+          "GCP",
+          "Cloudflare"
+        ],
+        [
+          "Docker",
+          "Podman",
+          "Kubernetes",
+          "Nomad"
+        ],
+        [
+          "Reddit",
+          "Hacker News",
+          "Lobsters",
+          "Slashdot"
+        ],
+        [
+          "Twitter",
+          "Threads",
+          "Bluesky",
+          "Mastodon"
+        ],
+        [
+          "Instagram",
+          "TikTok",
+          "Snapchat",
+          "BeReal"
+        ],
+        [
+          "Spotify",
+          "Apple Music",
+          "Tidal",
+          "YouTube Music"
+        ],
+        [
+          "Netflix",
+          "Hulu",
+          "Disney+",
+          "Max"
+        ],
+        [
+          "ChatGPT",
+          "Claude",
+          "Gemini",
+          "Copilot"
+        ],
+        [
+          "VPN",
+          "Proxy",
+          "Tor",
+          "DNS over HTTPS"
+        ],
+        [
+          "SSD",
+          "HDD",
+          "NVMe",
+          "eMMC"
+        ],
+        [
+          "Wi-Fi",
+          "5G",
+          "Ethernet",
+          "Bluetooth"
+        ],
+        [
+          "HTTP",
+          "HTTPS",
+          "FTP",
+          "SSH"
+        ],
+        [
+          "JSON",
+          "XML",
+          "YAML",
+          "TOML"
+        ],
+        [
+          "React",
+          "Vue",
+          "Svelte",
+          "Angular"
+        ],
+        [
+          "MySQL",
+          "Postgres",
+          "SQLite",
+          "MariaDB"
+        ],
+        [
+          "MongoDB",
+          "Redis",
+          "Cassandra",
+          "DynamoDB"
+        ],
+        [
+          "Linux",
+          "macOS",
+          "Windows",
+          "ChromeOS"
+        ],
+        [
+          "GitHub",
+          "GitLab",
+          "Bitbucket",
+          "Gitea"
+        ],
+        [
+          "Figma",
+          "Sketch",
+          "Adobe XD",
+          "Framer"
+        ],
+        [
+          "Tesla",
+          "Rivian",
+          "Lucid",
+          "Polestar"
+        ],
+        [
+          "Bitcoin",
+          "Ethereum",
+          "Solana",
+          "Dogecoin"
+        ],
+        [
+          "Kindle",
+          "Nook",
+          "Kobo",
+          "PocketBook"
+        ],
+        [
+          "AirPods",
+          "Galaxy Buds",
+          "Pixel Buds",
+          "Sony WF"
+        ],
+        [
+          "PayPal",
+          "Venmo",
+          "Cash App",
+          "Zelle"
+        ],
+        [
+          "Wikipedia",
+          "Britannica",
+          "Wikidata",
+          "Wikivoyage"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Adults Only",
+      "description": "Edgy 18+ pairs with similar feel and packaging. Awkward laughs guaranteed.",
+      "words": [
+        [
+          "Condom",
+          "Dental dam",
+          "Sponge",
+          "Diaphragm"
+        ],
+        [
+          "Vodka shot",
+          "Tequila shot",
+          "Jagerbomb",
+          "Sake bomb"
+        ],
+        [
+          "Strip club",
+          "Burlesque show",
+          "Gentlemen’s lounge",
+          "Cabaret"
+        ],
+        [
+          "One-night stand",
+          "Hookup",
+          "Fling",
+          "Friends with benefits"
+        ],
+        [
+          "Lube",
+          "Massage oil",
+          "Coconut oil",
+          "Petroleum jelly"
+        ],
+        [
+          "Tinder",
+          "Bumble",
+          "Hinge",
+          "Grindr"
+        ],
+        [
+          "Sexting",
+          "Phone sex",
+          "Cybering",
+          "Webcamming"
+        ],
+        [
+          "Lingerie",
+          "Babydoll",
+          "Teddy",
+          "Chemise"
+        ],
+        [
+          "Dom",
+          "Sub",
+          "Switch",
+          "Brat"
+        ],
+        [
+          "BDSM",
+          "Kink",
+          "Fetish",
+          "Roleplay"
+        ],
+        [
+          "Hangover",
+          "Blackout",
+          "Whiteys",
+          "Spins"
+        ],
+        [
+          "Bachelor party",
+          "Bachelorette",
+          "Stag night",
+          "Hen do"
+        ],
+        [
+          "OnlyFans",
+          "Patreon NSFW",
+          "Fansly",
+          "JustForFans"
+        ],
+        [
+          "Whiskey neat",
+          "Whiskey rocks",
+          "Whiskey sour",
+          "Old fashioned"
+        ],
+        [
+          "Vape pen",
+          "Joint",
+          "Blunt",
+          "Bong"
+        ],
+        [
+          "Speed dating",
+          "Blind date",
+          "Matchmaker setup",
+          "Dating app date"
+        ],
+        [
+          "Boudoir shoot",
+          "Glamour shoot",
+          "Pin-up shoot",
+          "Nude art"
+        ],
+        [
+          "Truth or Dare",
+          "Spin the Bottle",
+          "Never Have I Ever",
+          "7 Minutes in Heaven"
+        ],
+        [
+          "Friends to lovers",
+          "Enemies to lovers",
+          "Slow burn",
+          "Insta-love"
+        ],
+        [
+          "Mistletoe kiss",
+          "New Year’s kiss",
+          "First kiss",
+          "Goodbye kiss"
+        ],
+        [
+          "Plus one",
+          "Wingman",
+          "Wingwoman",
+          "Third wheel"
+        ],
+        [
+          "Mocktail",
+          "Cocktail",
+          "Shot",
+          "Highball"
+        ],
+        [
+          "Tattoo",
+          "Piercing",
+          "Brand",
+          "Scarification"
+        ],
+        [
+          "Booty call",
+          "Late text",
+          "You up?",
+          "Drunk dial"
+        ],
+        [
+          "Pole class",
+          "Aerial silks",
+          "Burlesque class",
+          "Twerk class"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Academia",
+      "description": "Arts, sciences and humanities — sound smart, get stumped.",
+      "words": [
+        [
+          "Algebra",
+          "Geometry",
+          "Calculus",
+          "Trigonometry"
+        ],
+        [
+          "Physics",
+          "Chemistry",
+          "Biology",
+          "Earth science"
+        ],
+        [
+          "Sociology",
+          "Anthropology",
+          "Psychology",
+          "Archaeology"
+        ],
+        [
+          "Macro",
+          "Micro",
+          "Econometrics",
+          "Behavioral economics"
+        ],
+        [
+          "Linguistics",
+          "Phonetics",
+          "Syntax",
+          "Semantics"
+        ],
+        [
+          "Cubism",
+          "Surrealism",
+          "Impressionism",
+          "Expressionism"
+        ],
+        [
+          "Symbolism",
+          "Allegory",
+          "Metaphor",
+          "Simile"
+        ],
+        [
+          "Bachelor’s",
+          "Master’s",
+          "Doctorate",
+          "Postdoc"
+        ],
+        [
+          "Thesis",
+          "Dissertation",
+          "Capstone",
+          "Practicum"
+        ],
+        [
+          "Quantum mechanics",
+          "Relativity",
+          "String theory",
+          "Loop gravity"
+        ],
+        [
+          "DNA",
+          "RNA",
+          "Protein",
+          "Enzyme"
+        ],
+        [
+          "Mitosis",
+          "Meiosis",
+          "Fission",
+          "Budding"
+        ],
+        [
+          "Capitalism",
+          "Socialism",
+          "Communism",
+          "Anarchism"
+        ],
+        [
+          "Renaissance",
+          "Baroque",
+          "Romanticism",
+          "Modernism"
+        ],
+        [
+          "Stoicism",
+          "Epicureanism",
+          "Cynicism",
+          "Skepticism"
+        ],
+        [
+          "Utilitarianism",
+          "Deontology",
+          "Virtue ethics",
+          "Contractarianism"
+        ],
+        [
+          "Plato",
+          "Aristotle",
+          "Socrates",
+          "Pythagoras"
+        ],
+        [
+          "Newton",
+          "Einstein",
+          "Bohr",
+          "Schrödinger"
+        ],
+        [
+          "Logic",
+          "Rhetoric",
+          "Grammar",
+          "Dialectic"
+        ],
+        [
+          "Algorithm",
+          "Data structure",
+          "Compiler",
+          "Runtime"
+        ],
+        [
+          "Calculus 1",
+          "Calculus 2",
+          "Calculus 3",
+          "Linear algebra"
+        ],
+        [
+          "Statistics",
+          "Probability",
+          "Combinatorics",
+          "Game theory"
+        ],
+        [
+          "Genome",
+          "Transcriptome",
+          "Proteome",
+          "Metabolome"
+        ],
+        [
+          "Geology",
+          "Meteorology",
+          "Oceanography",
+          "Glaciology"
+        ],
+        [
+          "Latin",
+          "Greek",
+          "Sanskrit",
+          "Hebrew"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Celebrities & Pop Culture",
+      "description": "Stars whose names blur together unless you’re a true fan.",
+      "words": [
+        [
+          "Taylor Swift",
+          "Olivia Rodrigo",
+          "Sabrina Carpenter",
+          "Gracie Abrams"
+        ],
+        [
+          "Beyoncé",
+          "Rihanna",
+          "Adele",
+          "Lady Gaga"
+        ],
+        [
+          "Drake",
+          "Kendrick Lamar",
+          "J. Cole",
+          "Future"
+        ],
+        [
+          "Brad Pitt",
+          "George Clooney",
+          "Matt Damon",
+          "Leonardo DiCaprio"
+        ],
+        [
+          "Tom Holland",
+          "Andrew Garfield",
+          "Tobey Maguire",
+          "Miles Morales"
+        ],
+        [
+          "Zendaya",
+          "Florence Pugh",
+          "Anya Taylor-Joy",
+          "Margot Robbie"
+        ],
+        [
+          "Chris Hemsworth",
+          "Chris Evans",
+          "Chris Pratt",
+          "Chris Pine"
+        ],
+        [
+          "Kim Kardashian",
+          "Kourtney Kardashian",
+          "Khloé Kardashian",
+          "Kendall Jenner"
+        ],
+        [
+          "Travis Scott",
+          "Post Malone",
+          "The Weeknd",
+          "Bad Bunny"
+        ],
+        [
+          "Billie Eilish",
+          "Lana Del Rey",
+          "Lorde",
+          "Phoebe Bridgers"
+        ],
+        [
+          "Ariana Grande",
+          "Selena Gomez",
+          "Demi Lovato",
+          "Miley Cyrus"
+        ],
+        [
+          "Harry Styles",
+          "Niall Horan",
+          "Zayn Malik",
+          "Louis Tomlinson"
+        ],
+        [
+          "Elon Musk",
+          "Jeff Bezos",
+          "Mark Zuckerberg",
+          "Bill Gates"
+        ],
+        [
+          "Oprah",
+          "Ellen",
+          "Kelly Clarkson",
+          "Drew Barrymore"
+        ],
+        [
+          "Ryan Reynolds",
+          "Ryan Gosling",
+          "Ryan Phillippe",
+          "Ryan Murphy"
+        ],
+        [
+          "Pedro Pascal",
+          "Oscar Isaac",
+          "Diego Luna",
+          "Gael García Bernal"
+        ],
+        [
+          "MrBeast",
+          "PewDiePie",
+          "Markiplier",
+          "KSI"
+        ],
+        [
+          "Cristiano Ronaldo",
+          "Lionel Messi",
+          "Neymar",
+          "Mbappé"
+        ],
+        [
+          "LeBron James",
+          "Steph Curry",
+          "Kevin Durant",
+          "Giannis"
+        ],
+        [
+          "Serena Williams",
+          "Venus Williams",
+          "Naomi Osaka",
+          "Coco Gauff"
+        ],
+        [
+          "BTS",
+          "BLACKPINK",
+          "TWICE",
+          "Stray Kids"
+        ],
+        [
+          "Pedro Sanchez",
+          "Pedro Pascal",
+          "Pedro Almodóvar",
+          "Pedro Martínez"
+        ],
+        [
+          "Timothée Chalamet",
+          "Austin Butler",
+          "Jacob Elordi",
+          "Paul Mescal"
+        ],
+        [
+          "Dua Lipa",
+          "Charli XCX",
+          "Doja Cat",
+          "Tate McRae"
+        ],
+        [
+          "Shakira",
+          "JLo",
+          "Camila Cabello",
+          "Becky G"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Gaming & Anime",
+      "description": "Titles, characters and franchises that overlap just enough to spark fights.",
+      "words": [
+        [
+          "Mario",
+          "Luigi",
+          "Wario",
+          "Waluigi"
+        ],
+        [
+          "Zelda",
+          "Link",
+          "Ganondorf",
+          "Sheik"
+        ],
+        [
+          "Pikachu",
+          "Raichu",
+          "Pichu",
+          "Plusle"
+        ],
+        [
+          "Naruto",
+          "Sasuke",
+          "Sakura",
+          "Kakashi"
+        ],
+        [
+          "Goku",
+          "Vegeta",
+          "Gohan",
+          "Trunks"
+        ],
+        [
+          "Luffy",
+          "Zoro",
+          "Sanji",
+          "Nami"
+        ],
+        [
+          "Eren",
+          "Mikasa",
+          "Armin",
+          "Levi"
+        ],
+        [
+          "Tanjiro",
+          "Nezuko",
+          "Zenitsu",
+          "Inosuke"
+        ],
+        [
+          "Minecraft",
+          "Terraria",
+          "Roblox",
+          "Core"
+        ],
+        [
+          "Fortnite",
+          "PUBG",
+          "Apex Legends",
+          "Warzone"
+        ],
+        [
+          "League of Legends",
+          "Dota 2",
+          "Smite",
+          "Heroes of the Storm"
+        ],
+        [
+          "Valorant",
+          "Counter-Strike",
+          "Overwatch",
+          "Rainbow Six"
+        ],
+        [
+          "FIFA",
+          "eFootball",
+          "NBA 2K",
+          "Madden"
+        ],
+        [
+          "God of War",
+          "Bayonetta",
+          "Devil May Cry",
+          "Nier"
+        ],
+        [
+          "Skyrim",
+          "Oblivion",
+          "Morrowind",
+          "Starfield"
+        ],
+        [
+          "Witcher 3",
+          "Cyberpunk 2077",
+          "Mass Effect",
+          "Dragon Age"
+        ],
+        [
+          "Stardew Valley",
+          "Animal Crossing",
+          "Story of Seasons",
+          "My Time at Sandrock"
+        ],
+        [
+          "Genshin Impact",
+          "Honkai Star Rail",
+          "Wuthering Waves",
+          "Zenless Zone Zero"
+        ],
+        [
+          "Persona 5",
+          "Persona 4",
+          "Persona 3",
+          "Metaphor: ReFantazio"
+        ],
+        [
+          "Final Fantasy 7",
+          "Final Fantasy 10",
+          "Final Fantasy 14",
+          "Final Fantasy 16"
+        ],
+        [
+          "Spirited Away",
+          "My Neighbor Totoro",
+          "Princess Mononoke",
+          "Castle in the Sky"
+        ],
+        [
+          "Death Note",
+          "Code Geass",
+          "Steins;Gate",
+          "Monster"
+        ],
+        [
+          "Sword Art Online",
+          "Log Horizon",
+          ".hack",
+          "Overlord"
+        ],
+        [
+          "Pokémon Red",
+          "Pokémon Gold",
+          "Pokémon Ruby",
+          "Pokémon Diamond"
+        ],
+        [
+          "Switch",
+          "PS5",
+          "Xbox Series X",
+          "Steam Deck"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Sports & Fitness",
+      "description": "Sports and workouts that look near-identical from the outside.",
+      "words": [
+        [
+          "Soccer",
+          "Futsal",
+          "Indoor soccer",
+          "Five-a-side"
+        ],
+        [
+          "Basketball",
+          "Streetball",
+          "3x3",
+          "Slamball"
+        ],
+        [
+          "Tennis",
+          "Badminton",
+          "Squash",
+          "Padel"
+        ],
+        [
+          "Boxing",
+          "Kickboxing",
+          "Muay Thai",
+          "MMA"
+        ],
+        [
+          "Yoga",
+          "Pilates",
+          "Barre",
+          "Stretching"
+        ],
+        [
+          "Marathon",
+          "Half marathon",
+          "10K",
+          "Ultra"
+        ],
+        [
+          "Sprint",
+          "Hurdles",
+          "Relay",
+          "Long jump"
+        ],
+        [
+          "Swimming",
+          "Diving",
+          "Synchro swim",
+          "Water polo"
+        ],
+        [
+          "Surfing",
+          "Bodyboarding",
+          "Kitesurfing",
+          "Windsurfing"
+        ],
+        [
+          "Skiing",
+          "Snowboarding",
+          "Skating",
+          "Tobogganing"
+        ],
+        [
+          "Volleyball",
+          "Beach volleyball",
+          "Sepak takraw",
+          "Footvolley"
+        ],
+        [
+          "Baseball",
+          "Softball",
+          "Cricket",
+          "Wiffle ball"
+        ],
+        [
+          "Rugby union",
+          "Rugby league",
+          "American football",
+          "Canadian football"
+        ],
+        [
+          "CrossFit",
+          "F45",
+          "HIIT",
+          "Bootcamp"
+        ],
+        [
+          "Squat",
+          "Deadlift",
+          "Bench press",
+          "Overhead press"
+        ],
+        [
+          "Bicep curl",
+          "Hammer curl",
+          "Preacher curl",
+          "Concentration curl"
+        ],
+        [
+          "Treadmill",
+          "Elliptical",
+          "Stair climber",
+          "Rower"
+        ],
+        [
+          "Cycling",
+          "Spinning",
+          "Mountain biking",
+          "Gravel riding"
+        ],
+        [
+          "Hiking",
+          "Trekking",
+          "Backpacking",
+          "Bushwhacking"
+        ],
+        [
+          "Archery",
+          "Darts",
+          "Lawn bowls",
+          "Bocce"
+        ],
+        [
+          "Judo",
+          "Jiu-jitsu",
+          "Karate",
+          "Taekwondo"
+        ],
+        [
+          "Golf",
+          "Mini golf",
+          "Disc golf",
+          "FootGolf"
+        ],
+        [
+          "Bowling",
+          "Curling",
+          "Shuffleboard",
+          "Boules"
+        ],
+        [
+          "Rowing",
+          "Kayaking",
+          "Canoeing",
+          "Stand-up paddle"
+        ],
+        [
+          "Pickleball",
+          "Padel",
+          "Platform tennis",
+          "Beach tennis"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Travel & Geography",
+      "description": "Cities and places that sound similar enough to start arguments.",
+      "words": [
+        [
+          "Paris",
+          "Rome",
+          "Madrid",
+          "Lisbon"
+        ],
+        [
+          "London",
+          "Manchester",
+          "Edinburgh",
+          "Dublin"
+        ],
+        [
+          "New York",
+          "Boston",
+          "Chicago",
+          "Philadelphia"
+        ],
+        [
+          "Los Angeles",
+          "San Diego",
+          "San Francisco",
+          "Seattle"
+        ],
+        [
+          "Tokyo",
+          "Osaka",
+          "Kyoto",
+          "Yokohama"
+        ],
+        [
+          "Beijing",
+          "Shanghai",
+          "Shenzhen",
+          "Hangzhou"
+        ],
+        [
+          "Seoul",
+          "Busan",
+          "Incheon",
+          "Daegu"
+        ],
+        [
+          "Bangkok",
+          "Chiang Mai",
+          "Phuket",
+          "Pattaya"
+        ],
+        [
+          "Sydney",
+          "Melbourne",
+          "Brisbane",
+          "Perth"
+        ],
+        [
+          "Dubai",
+          "Abu Dhabi",
+          "Doha",
+          "Riyadh"
+        ],
+        [
+          "Istanbul",
+          "Ankara",
+          "Izmir",
+          "Antalya"
+        ],
+        [
+          "Cairo",
+          "Alexandria",
+          "Giza",
+          "Luxor"
+        ],
+        [
+          "Rio de Janeiro",
+          "São Paulo",
+          "Salvador",
+          "Brasilia"
+        ],
+        [
+          "Buenos Aires",
+          "Santiago",
+          "Montevideo",
+          "Asunción"
+        ],
+        [
+          "Mexico City",
+          "Guadalajara",
+          "Monterrey",
+          "Puebla"
+        ],
+        [
+          "Toronto",
+          "Vancouver",
+          "Montreal",
+          "Calgary"
+        ],
+        [
+          "Berlin",
+          "Munich",
+          "Hamburg",
+          "Frankfurt"
+        ],
+        [
+          "Amsterdam",
+          "Rotterdam",
+          "The Hague",
+          "Utrecht"
+        ],
+        [
+          "Vienna",
+          "Salzburg",
+          "Graz",
+          "Innsbruck"
+        ],
+        [
+          "Prague",
+          "Budapest",
+          "Warsaw",
+          "Krakow"
+        ],
+        [
+          "Stockholm",
+          "Copenhagen",
+          "Oslo",
+          "Helsinki"
+        ],
+        [
+          "Switzerland",
+          "Austria",
+          "Liechtenstein",
+          "Slovenia"
+        ],
+        [
+          "Maldives",
+          "Seychelles",
+          "Mauritius",
+          "Bora Bora"
+        ],
+        [
+          "Iceland",
+          "Greenland",
+          "Faroe Islands",
+          "Svalbard"
+        ],
+        [
+          "Sahara",
+          "Gobi",
+          "Atacama",
+          "Namib"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Films & TV",
+      "description": "Shows and movies with overlapping plots, casts or vibes.",
+      "words": [
+        [
+          "Game of Thrones",
+          "House of the Dragon",
+          "The Witcher",
+          "The Wheel of Time"
+        ],
+        [
+          "Breaking Bad",
+          "Better Call Saul",
+          "Ozark",
+          "Narcos"
+        ],
+        [
+          "Friends",
+          "How I Met Your Mother",
+          "Seinfeld",
+          "New Girl"
+        ],
+        [
+          "The Office US",
+          "The Office UK",
+          "Parks and Recreation",
+          "Brooklyn Nine-Nine"
+        ],
+        [
+          "Stranger Things",
+          "Dark",
+          "Severance",
+          "The OA"
+        ],
+        [
+          "Succession",
+          "Industry",
+          "Billions",
+          "The Morning Show"
+        ],
+        [
+          "Squid Game",
+          "Alice in Borderland",
+          "The Hunger Games",
+          "Battle Royale"
+        ],
+        [
+          "The Mandalorian",
+          "Boba Fett",
+          "Andor",
+          "Ahsoka"
+        ],
+        [
+          "Avengers",
+          "Justice League",
+          "Guardians of the Galaxy",
+          "X-Men"
+        ],
+        [
+          "Iron Man",
+          "Captain America",
+          "Thor",
+          "Hulk"
+        ],
+        [
+          "Batman",
+          "Superman",
+          "Wonder Woman",
+          "Aquaman"
+        ],
+        [
+          "Spider-Man",
+          "Daredevil",
+          "Black Panther",
+          "Doctor Strange"
+        ],
+        [
+          "Lord of the Rings",
+          "The Hobbit",
+          "Rings of Power",
+          "Beren and Lúthien"
+        ],
+        [
+          "Harry Potter",
+          "Fantastic Beasts",
+          "Cursed Child",
+          "Hogwarts Legacy"
+        ],
+        [
+          "Twilight",
+          "Vampire Diaries",
+          "True Blood",
+          "Interview with the Vampire"
+        ],
+        [
+          "La La Land",
+          "Whiplash",
+          "Babylon",
+          "First Man"
+        ],
+        [
+          "Inception",
+          "Tenet",
+          "Interstellar",
+          "Memento"
+        ],
+        [
+          "The Godfather",
+          "Goodfellas",
+          "Casino",
+          "The Irishman"
+        ],
+        [
+          "Mission Impossible",
+          "James Bond",
+          "Jason Bourne",
+          "Jack Ryan"
+        ],
+        [
+          "Fast & Furious",
+          "The Transporter",
+          "Drive",
+          "Baby Driver"
+        ],
+        [
+          "Frozen",
+          "Tangled",
+          "Moana",
+          "Encanto"
+        ],
+        [
+          "Toy Story",
+          "Monsters Inc",
+          "Finding Nemo",
+          "Cars"
+        ],
+        [
+          "Squid Game",
+          "Round 6",
+          "My Name",
+          "All of Us Are Dead"
+        ],
+        [
+          "Crown",
+          "Downton Abbey",
+          "Bridgerton",
+          "Sanditon"
+        ],
+        [
+          "Sherlock",
+          "Elementary",
+          "Poirot",
+          "Endeavour"
+        ]
+      ]
+    },
+    {
+      "language": "en",
+      "name": "Mind & Mystic",
+      "description": "Mind, mystic and metaphysical concepts that blur in conversation.",
+      "words": [
+        [
+          "Astrology",
+          "Astronomy",
+          "Cosmology",
+          "Numerology"
+        ],
+        [
+          "Tarot",
+          "Oracle cards",
+          "Lenormand",
+          "Runes"
+        ],
+        [
+          "Aries",
+          "Leo",
+          "Sagittarius",
+          "Cancer"
+        ],
+        [
+          "Mercury retrograde",
+          "Solar flare",
+          "Blood moon",
+          "Eclipse"
+        ],
+        [
+          "Crystal healing",
+          "Reiki",
+          "Sound bath",
+          "Energy work"
+        ],
+        [
+          "Meditation",
+          "Mindfulness",
+          "Contemplation",
+          "Visualization"
+        ],
+        [
+          "CBT",
+          "DBT",
+          "ACT",
+          "EMDR"
+        ],
+        [
+          "Introvert",
+          "Extrovert",
+          "Ambivert",
+          "Omnivert"
+        ],
+        [
+          "Anxiety",
+          "Stress",
+          "Burnout",
+          "Overwhelm"
+        ],
+        [
+          "Empath",
+          "Highly sensitive",
+          "Intuitive",
+          "Clairsentient"
+        ],
+        [
+          "Ghost",
+          "Specter",
+          "Apparition",
+          "Poltergeist"
+        ],
+        [
+          "Witch",
+          "Wizard",
+          "Sorcerer",
+          "Warlock"
+        ],
+        [
+          "Aura reading",
+          "Palm reading",
+          "Tea-leaf reading",
+          "Cold reading"
+        ],
+        [
+          "Karma",
+          "Dharma",
+          "Samsara",
+          "Nirvana"
+        ],
+        [
+          "Chakra",
+          "Aura",
+          "Meridian",
+          "Energy field"
+        ],
+        [
+          "Big Five",
+          "MBTI",
+          "Enneagram",
+          "DiSC"
+        ],
+        [
+          "Cognitive dissonance",
+          "Confirmation bias",
+          "Anchoring",
+          "Sunk cost"
+        ],
+        [
+          "Lucid dream",
+          "Astral projection",
+          "Out-of-body",
+          "Sleep paralysis"
+        ],
+        [
+          "Ouija board",
+          "Séance",
+          "Pendulum",
+          "Spirit box"
+        ],
+        [
+          "Manifestation",
+          "Affirmation",
+          "Visualization",
+          "Intention setting"
+        ],
+        [
+          "Stoicism",
+          "Buddhism",
+          "Daoism",
+          "Hinduism"
+        ],
+        [
+          "Soulmate",
+          "Twin flame",
+          "Karmic partner",
+          "Life partner"
+        ],
+        [
+          "Birth chart",
+          "Solar return",
+          "Synastry",
+          "Composite chart"
+        ],
+        [
+          "Self-help",
+          "Self-care",
+          "Self-love",
+          "Self-compassion"
+        ],
+        [
+          "Therapy",
+          "Coaching",
+          "Counseling",
+          "Mentoring"
         ]
       ]
     }

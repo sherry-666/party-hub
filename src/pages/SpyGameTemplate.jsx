@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getCookie, setCookie } from '../utils/cookieUtils';
 import { socket, connectSocket } from '../utils/socket';
+import { useTranslation } from '../contexts/LanguageContext';
 import wordsData from '../assets/spy/words_comprehensive.json';
+
+const DEFAULT_WORDBANK_LANG = 'zh';
+const categoriesByLanguage = (lang) => wordsData.categories.filter(c => (c.language || 'zh') === lang);
 
 const SpyGameTemplate = () => {
   const navigate = useNavigate();
-  
+  const { t, lang } = useTranslation();
+
   // Game States: 'NAME', 'MENU', 'JOIN', 'WAITING'
   const [gameState, setGameState] = useState('NAME');
   const [userName, setUserName] = useState('');
@@ -15,14 +20,17 @@ const SpyGameTemplate = () => {
   const [gameCode, setGameCode] = useState('');
   const [players, setPlayers] = useState([]);
   const [isHost, setIsHost] = useState(false);
-  
+
   // Host Configurations
   const [playerCount, setPlayerCount] = useState(8);
   const [spyCount, setSpyCount] = useState(2); // Default 1/4
   const [whiteboardCount, setWhiteboardCount] = useState(1);
   const [surpriseMode, setSurpriseMode] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState(wordsData.categories.map(c => c.name));
+  const [wordbankLanguage, setWordbankLanguage] = useState(lang);
+  const [selectedCategories, setSelectedCategories] = useState(() => categoriesByLanguage(lang).map(c => c.name));
   const [showCategoryModal, setShowCategoryModal] = useState(false);
+
+  const filteredCategories = useMemo(() => categoriesByLanguage(wordbankLanguage), [wordbankLanguage]);
 
   // Game Play States
   const [myRole, setMyRole] = useState(null);
@@ -78,13 +86,14 @@ const SpyGameTemplate = () => {
       setCookie('active_room_code', gameCode, 1); // Persist for 1 day
       const me = players.find(p => p.userId === userId);
       if (me) setIsHost(me.isHost);
-      
+
       // Update settings from server
       if (settings) {
         if (settings.playerCount) setPlayerCount(settings.playerCount);
         if (settings.spyCount) setSpyCount(settings.spyCount);
         if (settings.whiteboardCount) setWhiteboardCount(settings.whiteboardCount);
         if (settings.surpriseMode !== undefined) setSurpriseMode(settings.surpriseMode);
+        if (settings.wordbankLanguage) setWordbankLanguage(settings.wordbankLanguage);
         if (settings.selectedCategories) setSelectedCategories(settings.selectedCategories);
       }
 
@@ -108,6 +117,7 @@ const SpyGameTemplate = () => {
         if (settings.spyCount) setSpyCount(settings.spyCount);
         if (settings.whiteboardCount) setWhiteboardCount(settings.whiteboardCount);
         if (settings.surpriseMode !== undefined) setSurpriseMode(settings.surpriseMode);
+        if (settings.wordbankLanguage) setWordbankLanguage(settings.wordbankLanguage);
         if (settings.selectedCategories) setSelectedCategories(settings.selectedCategories);
       }
 
@@ -132,9 +142,13 @@ const SpyGameTemplate = () => {
       console.log(`Player ${name} disconnected`);
     });
 
-    socket.on('error', (msg) => {
-      showModal('错误', msg);
-      if (msg === '房间号不存在') {
+    socket.on('error', (payload) => {
+      const code = payload && typeof payload === 'object' ? payload.code : null;
+      const legacyMsg = typeof payload === 'string' ? payload : null;
+      const errorKey = code === 'ROOM_NOT_FOUND' ? 'errors.roomNotFound' : 'errors.unknown';
+      const message = legacyMsg || t(errorKey);
+      showModal(t('common.error'), message);
+      if (code === 'ROOM_NOT_FOUND' || legacyMsg === '房间号不存在') {
         setCookie('active_room_code', '', -1); // Clear invalid room
       }
     });
@@ -144,6 +158,7 @@ const SpyGameTemplate = () => {
       if (newSettings.whiteboardCount) setWhiteboardCount(newSettings.whiteboardCount);
       if (newSettings.surpriseMode !== undefined) setSurpriseMode(newSettings.surpriseMode);
       if (newSettings.playerCount) setPlayerCount(newSettings.playerCount);
+      if (newSettings.wordbankLanguage) setWordbankLanguage(newSettings.wordbankLanguage);
       if (newSettings.selectedCategories) setSelectedCategories(newSettings.selectedCategories);
     });
 
@@ -234,14 +249,19 @@ const SpyGameTemplate = () => {
 
   const handleStartHost = () => {
     setIsHost(true);
-    socket.emit('create-room', { 
+    const initialLang = lang;
+    const initialCats = categoriesByLanguage(initialLang).map(c => c.name);
+    setWordbankLanguage(initialLang);
+    setSelectedCategories(initialCats);
+    socket.emit('create-room', {
       userData: { name: userName, userId },
-      settings: { 
-        playerCount: 8, 
-        spyCount: 2, 
-        whiteboardCount: 1, 
+      settings: {
+        playerCount: 8,
+        spyCount: 2,
+        whiteboardCount: 1,
         surpriseMode: false,
-        selectedCategories: wordsData.categories.map(c => c.name)
+        wordbankLanguage: initialLang,
+        selectedCategories: initialCats
       }
     });
   };
@@ -253,7 +273,7 @@ const SpyGameTemplate = () => {
   };
 
   const handleLeaveRoom = () => {
-    showModal('提示', '确定要离开房间吗？', () => {
+    showModal(t('common.notice'), t('spy.waiting.leaveConfirm'), () => {
       socket.emit('leave-room', { userId, name: userName });
       setCookie('active_room_code', '', -1); // Clear cookie
       setPlayers([]);
@@ -261,6 +281,16 @@ const SpyGameTemplate = () => {
       setIsHost(false);
       setGameState('MENU');
     }, true);
+  };
+
+  const handleWordbankLanguageChange = (newLang) => {
+    if (newLang === wordbankLanguage) return;
+    const newCats = categoriesByLanguage(newLang).map(c => c.name);
+    setWordbankLanguage(newLang);
+    setSelectedCategories(newCats);
+    if (gameCode) {
+      socket.emit('update-settings', { gameCode, settings: { wordbankLanguage: newLang, selectedCategories: newCats } });
+    }
   };
 
   const handleConfirmName = () => {
@@ -275,23 +305,47 @@ const SpyGameTemplate = () => {
     <AnimatePresence>
       {showCategoryModal && (
         <div className="modal-overlay">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }} 
-            animate={{ opacity: 1, scale: 1 }} 
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             className="modal-content glass-card"
             style={{ maxWidth: '400px', maxHeight: '80vh', display: 'flex', flexDirection: 'column' }}
           >
-            <h3>选择词库 ({selectedCategories.length}/{wordsData.categories.length})</h3>
+            <h3>{t('spy.wordbank.title', { selected: selectedCategories.length, total: filteredCategories.length })}</h3>
             <p style={{ fontSize: '0.9em', color: 'rgba(255,255,255,0.7)', marginBottom: '15px' }}>
-              请勾选你想在本局游戏中使用的词库分类（至少选1个）。
+              {t('spy.wordbank.instruction')}
             </p>
-            
+
+            <div style={{ marginBottom: '15px' }}>
+              <div style={{ fontSize: '0.85em', color: 'rgba(255,255,255,0.6)', marginBottom: '8px', fontWeight: 600 }}>
+                {t('spy.wordbank.languageLabel')}
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  type="button"
+                  className={`btn ${wordbankLanguage === 'zh' ? 'btn-primary' : 'btn-secondary'}`}
+                  style={{ flex: 1, padding: '8px 12px', fontSize: '0.9em' }}
+                  onClick={() => handleWordbankLanguageChange('zh')}
+                >
+                  {t('spy.wordbank.languageZh')}
+                </button>
+                <button
+                  type="button"
+                  className={`btn ${wordbankLanguage === 'en' ? 'btn-primary' : 'btn-secondary'}`}
+                  style={{ flex: 1, padding: '8px 12px', fontSize: '0.9em' }}
+                  onClick={() => handleWordbankLanguageChange('en')}
+                >
+                  {t('spy.wordbank.languageEn')}
+                </button>
+              </div>
+            </div>
+
             <div className="category-list" style={{ flex: 1, overflowY: 'auto', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px', paddingRight: '10px' }}>
-              {wordsData.categories.map(cat => (
+              {filteredCategories.map(cat => (
                 <label key={cat.name} style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.2s' }}>
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={selectedCategories.includes(cat.name)}
                     onChange={(e) => {
                       let newSelection = [...selectedCategories];
@@ -307,7 +361,7 @@ const SpyGameTemplate = () => {
                     style={{ width: '18px', height: '18px', accentColor: '#4f46e5' }}
                   />
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: '600', fontSize: '1.05em' }}>{cat.name} <span style={{ fontSize: '0.8em', color: 'rgba(255,255,255,0.5)', fontWeight: 'normal' }}>({cat.words.length}组)</span></div>
+                    <div style={{ fontWeight: '600', fontSize: '1.05em' }}>{cat.name} <span style={{ fontSize: '0.8em', color: 'rgba(255,255,255,0.5)', fontWeight: 'normal' }}>{t('spy.wordbank.groupCount', { count: cat.words.length })}</span></div>
                     <div style={{ fontSize: '0.8em', color: 'rgba(255,255,255,0.6)', marginTop: '4px' }}>{cat.description}</div>
                   </div>
                 </label>
@@ -315,7 +369,7 @@ const SpyGameTemplate = () => {
             </div>
 
             <button className="btn btn-primary" onClick={() => setShowCategoryModal(false)} style={{ width: '100%' }}>
-              完成选择
+              {t('spy.wordbank.done')}
             </button>
           </motion.div>
         </div>
@@ -337,16 +391,16 @@ const SpyGameTemplate = () => {
             <p>{modal.message}</p>
             <div className="modal-actions">
               {modal.showCancel && (
-                <button className="btn btn-secondary" onClick={closeModal}>取消</button>
+                <button className="btn btn-secondary" onClick={closeModal}>{t('common.cancel')}</button>
               )}
-              <button 
-                className="btn btn-primary" 
+              <button
+                className="btn btn-primary"
                 onClick={() => {
                   if (modal.onConfirm) modal.onConfirm();
                   closeModal();
                 }}
               >
-                确定
+                {t('common.confirm')}
               </button>
             </div>
           </motion.div>
@@ -357,20 +411,20 @@ const SpyGameTemplate = () => {
 
   const renderNameInput = () => (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="setup-card glass-card">
-      <h2>请输入您的昵称</h2>
-      <input 
-        type="text" 
-        value={userName} 
-        onChange={(e) => setUserName(e.target.value)} 
-        placeholder="例如：王小明"
+      <h2>{t('spy.name.heading')}</h2>
+      <input
+        type="text"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        placeholder={t('spy.name.placeholder')}
         className="game-input"
       />
-      <button 
-        className="btn btn-primary btn-lg" 
+      <button
+        className="btn btn-primary btn-lg"
         disabled={!userName.trim()}
         onClick={handleConfirmName}
       >
-        确定
+        {t('common.confirm')}
       </button>
     </motion.div>
   );
@@ -379,26 +433,26 @@ const SpyGameTemplate = () => {
     <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="menu-grid">
       <div className="menu-card glass-card" onClick={handleStartHost}>
         <div className="menu-icon">👑</div>
-        <h3>主持游戏</h3>
-        <p>立即创建一个新房间</p>
+        <h3>{t('spy.menu.hostTitle')}</h3>
+        <p>{t('spy.menu.hostDesc')}</p>
       </div>
       <div className="menu-card glass-card" onClick={() => setGameState('JOIN')}>
         <div className="menu-icon">🤝</div>
-        <h3>加入游戏</h3>
-        <p>通过房间代码进入现有游戏</p>
+        <h3>{t('spy.menu.joinTitle')}</h3>
+        <p>{t('spy.menu.joinDesc')}</p>
       </div>
     </motion.div>
   );
 
   const renderHostConfig = () => (
     <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} className="setup-card glass-card config-card">
-      <h2>游戏配置</h2>
+      <h2>{t('spy.config.heading')}</h2>
       <div className="config-item">
-        <label>总人数: {playerCount}</label>
+        <label>{t('spy.config.totalPlayers', { count: playerCount })}</label>
         <input type="range" min="3" max="12" value={playerCount} onChange={(e) => setPlayerCount(parseInt(e.target.value))} />
       </div>
       <div className="config-item">
-        <label>卧底人数: {spyCount}</label>
+        <label>{t('spy.config.spyCount', { count: spyCount })}</label>
         <div className="counter">
           <button onClick={() => setSpyCount(Math.max(1, spyCount - 1))}>-</button>
           <span>{spyCount}</span>
@@ -406,7 +460,7 @@ const SpyGameTemplate = () => {
         </div>
       </div>
       <div className="config-item">
-        <label>白板人数: {whiteboardCount}</label>
+        <label>{t('spy.config.whiteboardCount', { count: whiteboardCount })}</label>
         <div className="counter">
           <button onClick={() => setWhiteboardCount(Math.max(0, whiteboardCount - 1))}>-</button>
           <span>{whiteboardCount}</span>
@@ -414,30 +468,30 @@ const SpyGameTemplate = () => {
         </div>
       </div>
       <div className="config-item toggle">
-        <label>惊喜模式 (Surprise Mode)</label>
+        <label>{t('spy.config.surpriseMode')}</label>
         <input type="checkbox" checked={surpriseMode} onChange={(e) => setSurpriseMode(e.target.checked)} />
       </div>
       <div className="config-actions">
-        <button className="btn btn-secondary" onClick={() => setGameState('MENU')}>返回</button>
-        <button className="btn btn-primary" onClick={handleStartHost}>创建房间</button>
+        <button className="btn btn-secondary" onClick={() => setGameState('MENU')}>{t('common.back')}</button>
+        <button className="btn btn-primary" onClick={handleStartHost}>{t('spy.config.createRoom')}</button>
       </div>
     </motion.div>
   );
 
   const renderJoinInput = () => (
     <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} className="setup-card glass-card">
-      <h2>输入房间代码</h2>
-      <input 
-        type="text" 
+      <h2>{t('spy.join.heading')}</h2>
+      <input
+        type="text"
         maxLength={4}
-        value={gameCode} 
-        onChange={(e) => setGameCode(e.target.value.toUpperCase())} 
-        placeholder="4位代码"
+        value={gameCode}
+        onChange={(e) => setGameCode(e.target.value.toUpperCase())}
+        placeholder={t('spy.join.placeholder')}
         className="game-input code-input"
       />
       <div className="config-actions">
-        <button className="btn btn-secondary" onClick={() => setGameState('MENU')}>返回</button>
-        <button className="btn btn-primary" onClick={handleJoinGame} disabled={gameCode.length < 4}>加入</button>
+        <button className="btn btn-secondary" onClick={() => setGameState('MENU')}>{t('common.back')}</button>
+        <button className="btn btn-primary" onClick={handleJoinGame} disabled={gameCode.length < 4}>{t('spy.join.join')}</button>
       </div>
     </motion.div>
   );
@@ -446,23 +500,23 @@ const SpyGameTemplate = () => {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="waiting-container">
       <div className="room-header glass-card">
         <div className="code-display">
-          <span>房间代码</span>
+          <span>{t('spy.waiting.roomCodeLabel')}</span>
           <h3>{gameCode}</h3>
         </div>
         <div className="player-stats">
-          {players.length} 玩家已加入
+          {t('spy.waiting.playersJoined', { count: players.length })}
         </div>
       </div>
-      
+
       <div className="player-list">
         {players.map((p, i) => {
           const timeLeft = p.isDisconnected && p.timeoutAt ? Math.max(0, Math.floor((p.timeoutAt - Date.now()) / 1000)) : null;
-          
+
           return (
-            <motion.div 
-              key={i} 
-              initial={{ scale: 0 }} 
-              animate={{ scale: 1 }} 
+            <motion.div
+              key={i}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
               className={`player-badge glass-card ${p.isMe ? 'me' : ''} ${p.isDisconnected ? 'disconnected' : ''}`}
             >
               <div className="player-info">
@@ -471,11 +525,11 @@ const SpyGameTemplate = () => {
               {p.isDisconnected && (
                 <div className="disconnect-status">
                   <span className="emoji">🔌</span>
-                  <span className="timer">{timeLeft}s</span>
+                  <span className="timer">{t('spy.waiting.reconnectTimer', { seconds: timeLeft })}</span>
                 </div>
               )}
               {p.isMe && p.id === userId && !isHost && !p.isDisconnected && (
-                <span className="returning-tag">欢迎回来!</span>
+                <span className="returning-tag">{t('spy.waiting.welcomeBack')}</span>
               )}
             </motion.div>
           );
@@ -484,10 +538,10 @@ const SpyGameTemplate = () => {
 
       {isHost && (
         <div className="host-config-section glass-card animate-fade-in">
-          <h4>游戏配置</h4>
+          <h4>{t('spy.waiting.configHeading')}</h4>
           <div className="config-grid">
             <div className="config-item">
-              <label>卧底: {spyCount}</label>
+              <label>{t('spy.waiting.spy', { count: spyCount })}</label>
               <div className="counter small">
                 <button onClick={() => {
                   const newCount = Math.max(1, spyCount - 1);
@@ -503,7 +557,7 @@ const SpyGameTemplate = () => {
               </div>
             </div>
             <div className="config-item">
-              <label>白板: {whiteboardCount}</label>
+              <label>{t('spy.waiting.whiteboard', { count: whiteboardCount })}</label>
               <div className="counter small">
                 <button onClick={() => {
                   const newCount = Math.max(0, whiteboardCount - 1);
@@ -519,7 +573,7 @@ const SpyGameTemplate = () => {
               </div>
             </div>
             <div className="config-item toggle-inline">
-              <label>惊喜模式</label>
+              <label>{t('spy.waiting.surpriseMode')}</label>
               <input type="checkbox" checked={surpriseMode} onChange={(e) => {
                 setSurpriseMode(e.target.checked);
                 socket.emit('update-settings', { gameCode, settings: { surpriseMode: e.target.checked } });
@@ -528,7 +582,7 @@ const SpyGameTemplate = () => {
           </div>
           <div className="config-item" style={{ marginTop: '15px' }}>
             <button className="btn btn-secondary btn-sm" onClick={() => setShowCategoryModal(true)} style={{ width: '100%' }}>
-              词库（已选 {selectedCategories.length}/{wordsData.categories.length}）
+              {t('spy.waiting.wordbankButton', { selected: selectedCategories.length, total: filteredCategories.length })}
             </button>
           </div>
         </div>
@@ -537,21 +591,21 @@ const SpyGameTemplate = () => {
       <div className="room-footer">
         {isHost ? (
           <div className="host-actions">
-            <button 
-              className="btn btn-primary btn-lg" 
+            <button
+              className="btn btn-primary btn-lg"
               disabled={players.length < 3}
               onClick={() => socket.emit('start-game', { gameCode })}
             >
-              开始游戏 ({players.length}/3+)
+              {t('spy.waiting.startGame', { count: players.length })}
             </button>
             <div className="action-row">
-              <button className="btn btn-secondary btn-sm" onClick={handleLeaveRoom}>退出房间</button>
+              <button className="btn btn-secondary btn-sm" onClick={handleLeaveRoom}>{t('spy.waiting.leaveRoom')}</button>
             </div>
           </div>
         ) : (
           <div className="waiting-footer">
-            <div className="waiting-msg">等待房主开始游戏...</div>
-            <button className="btn btn-secondary" onClick={handleLeaveRoom}>离开房间</button>
+            <div className="waiting-msg">{t('spy.waiting.waitingHost')}</div>
+            <button className="btn btn-secondary" onClick={handleLeaveRoom}>{t('spy.waiting.leaveRoomAlt')}</button>
           </div>
         )}
       </div>
@@ -566,44 +620,50 @@ const SpyGameTemplate = () => {
     }
   };
 
+  const roleLabel = (role) => {
+    if (role === 'SPY') return t('spy.role.spy');
+    if (role === 'WHITEBOARD') return t('spy.role.whiteboard');
+    return t('spy.role.regular');
+  };
+
   const renderInGame = () => (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="ingame-container">
       <div className="room-header glass-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3>游戏中</h3>
-        <p>存活: {alivePlayers.length}/{players.length}</p>
+        <h3>{t('spy.game.heading')}</h3>
+        <p>{t('spy.game.alive', { alive: alivePlayers.length, total: players.length })}</p>
       </div>
 
       <div className="word-reveal-section glass-card" style={{ position: 'relative', height: '150px', overflow: 'hidden', margin: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div className="secret-word" style={{ fontSize: '2em', fontWeight: 'bold', color: '#fff' }}>
-          {myRole === 'SPY' && !myWord && surpriseMode ? '（盲盒卧底）' : (myWord || '无（白板）')}
+          {myRole === 'SPY' && !myWord && surpriseMode ? t('spy.game.blindSpy') : (myWord || t('spy.game.whiteboardWord'))}
         </div>
-        <motion.div 
+        <motion.div
           className="scratch-card-cover"
           drag="y"
           dragConstraints={{ top: -150, bottom: 0 }}
           style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(135deg, #4f46e5, #ec4899)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', borderRadius: '12px', zIndex: 10, cursor: 'grab', userSelect: 'none' }}
         >
-          按住向上滑动 查看身份词
+          {t('spy.game.scratchHint')}
         </motion.div>
       </div>
 
       <div className="voting-section glass-card">
-        <h4>在此投票淘汰一名玩家</h4>
+        <h4>{t('spy.game.voteHeading')}</h4>
         <div className="player-list voting-list" style={{ marginTop: '15px' }}>
           {players.map((p, i) => {
             const isMe = p.userId === userId;
             const isAlive = alivePlayers.includes(p.userId);
             const hasVoted = votersList.includes(userId);
-            
+
             return (
               <div key={i} className={`player-badge glass-card ${!isAlive ? 'eliminated' : ''}`} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: myVote === p.userId ? 'rgba(79, 70, 229, 0.3)' : '', opacity: isAlive ? 1 : 0.5 }}>
                 <span style={{ textDecoration: !isAlive ? 'line-through' : 'none' }}>
-                  {p.name} {isMe && '(我)'} 
-                  {!isAlive && <span style={{ color: '#ff4d4f', marginLeft: '5px' }}>[已淘汰]</span>}
+                  {p.name} {isMe && t('spy.game.me')}
+                  {!isAlive && <span style={{ color: '#ff4d4f', marginLeft: '5px' }}>{t('spy.game.eliminated')}</span>}
                 </span>
-                
+
                 {isAlive && !isMe && alivePlayers.includes(userId) && (
-                  <button 
+                  <button
                     className="btn btn-primary btn-sm"
                     disabled={hasVoted}
                     onClick={() => {
@@ -611,41 +671,41 @@ const SpyGameTemplate = () => {
                       socket.emit('submit-vote', { gameCode, targetUserId: p.userId, myUserId: userId });
                     }}
                   >
-                    {hasVoted ? (myVote === p.userId ? '已投' : '等待') : '投票淘汰'}
+                    {hasVoted ? (myVote === p.userId ? t('spy.game.voted') : t('spy.game.waitingVote')) : t('spy.game.voteEliminate')}
                   </button>
                 )}
               </div>
             );
           })}
         </div>
-        
+
         {votersList.includes(userId) && !roundResult && (
           <div className="waiting-msg" style={{ marginTop: '15px', textAlign: 'center' }}>
-            你已投票，等待其他人... ({votersList.length}/{alivePlayers.length})
+            {t('spy.game.waitingOthers', { voted: votersList.length, total: alivePlayers.length })}
           </div>
         )}
       </div>
-      
+
       <AnimatePresence>
         {roundResult && !gameOverResult && (
           <div className="modal-overlay">
             <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="modal-content glass-card">
-              <h3>本轮投票结束</h3>
+              <h3>{t('spy.game.roundOverTitle')}</h3>
               {roundResult.eliminatedUserId ? (
                 <div>
                   <h4 style={{ color: '#ff4d4f', fontSize: '1.5em' }}>{roundResult.eliminatedName}</h4>
-                  <p>得票最高，惨遭淘汰！</p>
-                  <p style={{ marginTop: '10px' }}>TA 的身份是：<strong>{roundResult.eliminatedRole === 'SPY' ? '卧底' : (roundResult.eliminatedRole === 'WHITEBOARD' ? '白板' : '平民')}</strong></p>
+                  <p>{t('spy.game.eliminatedSuffix')}</p>
+                  <p style={{ marginTop: '10px' }}>{t('spy.game.revealRole', { role: '' })}<strong>{roleLabel(roundResult.eliminatedRole)}</strong></p>
                 </div>
               ) : (
-                <p>本轮居然没有人被淘汰！</p>
+                <p>{t('spy.game.noElimination')}</p>
               )}
               {isHost && (
                 <button className="btn btn-primary" style={{ marginTop: '20px', width: '100%' }} onClick={() => setRoundResult(null)}>
-                  进入下一轮继续投票
+                  {t('spy.game.nextRound')}
                 </button>
               )}
-              {!isHost && <p style={{ marginTop: '20px' }}>等待房主开启下一轮...</p>}
+              {!isHost && <p style={{ marginTop: '20px' }}>{t('spy.game.waitingNextRound')}</p>}
             </motion.div>
           </div>
         )}
@@ -657,21 +717,21 @@ const SpyGameTemplate = () => {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="ingame-container">
       <div className="room-header glass-card" style={{ textAlign: 'center' }}>
         <h2 style={{ color: gameOverResult?.winner === 'SPIES' ? '#ff4d4f' : '#4f46e5', fontSize: '2em' }}>
-          {gameOverResult?.winner === 'SPIES' ? '卧底阵营 胜利！' : '平民阵营 胜利！'}
+          {gameOverResult?.winner === 'SPIES' ? t('spy.over.spiesWin') : t('spy.over.civiliansWin')}
         </h2>
       </div>
 
       <div className="glass-card" style={{ marginTop: '20px' }}>
-        <h3>最终身份大揭晓</h3>
+        <h3>{t('spy.over.finalReveal')}</h3>
         <div className="player-list" style={{ marginTop: '15px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {gameOverResult?.players.map((p, i) => (
             <div key={i} className="player-badge glass-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span>{p.name} {p.userId === userId ? '(我)' : ''}</span>
+              <span>{p.name} {p.userId === userId ? t('spy.game.me') : ''}</span>
               <div style={{ textAlign: 'right' }}>
                 <span style={{ fontWeight: 'bold', color: p.role === 'SPY' ? '#ff4d4f' : '#10b981' }}>
-                  {p.role === 'SPY' ? '卧底' : (p.role === 'WHITEBOARD' ? '白板' : '平民')}
+                  {roleLabel(p.role)}
                 </span>
-                <div style={{ fontSize: '0.85em', color: 'rgba(255,255,255,0.7)' }}>词语: {p.word || '无'}</div>
+                <div style={{ fontSize: '0.85em', color: 'rgba(255,255,255,0.7)' }}>{t('spy.over.wordLabel', { word: p.word || t('spy.over.noWord') })}</div>
               </div>
             </div>
           ))}
@@ -681,13 +741,13 @@ const SpyGameTemplate = () => {
       {isHost && (
         <div style={{ marginTop: '30px', textAlign: 'center' }}>
           <button className="btn btn-primary btn-lg" onClick={() => socket.emit('play-again', { gameCode })}>
-            再来一局
+            {t('spy.over.playAgain')}
           </button>
         </div>
       )}
       {!isHost && (
         <div className="waiting-msg" style={{ marginTop: '30px', textAlign: 'center' }}>
-          游戏结束，等待房主再次开局...
+          {t('spy.over.waitingHost')}
         </div>
       )}
     </motion.div>
@@ -696,7 +756,7 @@ const SpyGameTemplate = () => {
   return (
     <div className="spy-container">
       <nav className="game-nav animate-fade-in">
-        <button className="btn btn-secondary" onClick={handleExitGame}>← 退出游戏</button>
+        <button className="btn btn-secondary" onClick={handleExitGame}>{t('spy.nav.exit')}</button>
         {userName && <div className="user-profile glass-card">👤 {userName}</div>}
       </nav>
 

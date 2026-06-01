@@ -4,6 +4,7 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const path = require('path');
 const wordsData = require('../src/assets/spy/words_comprehensive.json');
+const musicPairsData = require('./music_pairs.json');
 
 const app = express();
 app.use(cors());
@@ -176,7 +177,7 @@ io.on('connection', (socket) => {
       socket.emit('join-success', { gameCode: targetRoom, players: rooms[targetRoom].players, settings: rooms[targetRoom].settings });
       console.log(`[JOIN_SUCCESS] ${userData.name} in room ${targetRoom}`);
     } else {
-      socket.emit('error', '房间号不存在');
+      socket.emit('error', { code: 'ROOM_NOT_FOUND' });
     }
   });
 
@@ -263,20 +264,7 @@ io.on('connection', (socket) => {
     if (socket.id !== room.players.find(p => p.isHost)?.id) return;
     if (room.players.length < 3) return;
 
-    // Pick Category and Words
-    const availableCats = wordsData.categories;
-    const selectedCatNames = room.settings.selectedCategories && room.settings.selectedCategories.length > 0
-        ? room.settings.selectedCategories
-        : availableCats.map(c => c.name);
-        
-    const catName = selectedCatNames[Math.floor(Math.random() * selectedCatNames.length)];
-    const category = availableCats.find(c => c.name === catName) || availableCats[0];
-    
-    // Pick word set
-    const wordSet = category.words[Math.floor(Math.random() * category.words.length)];
-    const shuffledSet = [...wordSet].sort(() => 0.5 - Math.random());
-    const normalWord = shuffledSet[0];
-    const spyWord = shuffledSet[1];
+    const gameType = room.settings.gameType || 'word';
 
     let spyCount = room.settings.spyCount || 1;
     let whiteboardCount = room.settings.whiteboardCount || 0;
@@ -300,25 +288,84 @@ io.on('connection', (socket) => {
       round: 1
     };
 
-    room.players.forEach((p, idx) => {
-      p.role = roles[idx];
-      p.word = p.role === 'WHITEBOARD' ? '' : (p.role === 'SPY' ? spyWord : normalWord);
-      p.isAlive = true;
-      
-      io.to(p.id).emit('game-started', {
-        gameState: room.gameState,
-        myRole: p.role,
-        myWord: p.word,
-        alivePlayers: room.gameData.alivePlayers
+    if (gameType === 'music') {
+      // --- MUSIC GAME ---
+      const pair = musicPairsData.pairs[Math.floor(Math.random() * musicPairsData.pairs.length)];
+      const audioBasePath = '/audio/music-spy/';
+      const normalAudioUrl = audioBasePath + pair.normal.file;
+      const spyAudioUrl = audioBasePath + pair.spy.file;
+      const silenceUrl = audioBasePath + 'silence.wav';
+
+      room.players.forEach((p, idx) => {
+        p.role = roles[idx];
+        p.isAlive = true;
+        if (p.role === 'WHITEBOARD') {
+          p.audioUrl = silenceUrl;
+          p.trackTitle = 'Silence';
+          p.word = '';
+        } else if (p.role === 'SPY') {
+          p.audioUrl = spyAudioUrl;
+          p.trackTitle = pair.spy.title;
+          p.word = pair.spy.title;
+        } else {
+          p.audioUrl = normalAudioUrl;
+          p.trackTitle = pair.normal.title;
+          p.word = pair.normal.title;
+        }
+        
+        io.to(p.id).emit('game-started', {
+          gameState: room.gameState,
+          gameType: 'music',
+          myRole: p.role,
+          myAudioUrl: p.audioUrl,
+          myTrackTitle: p.trackTitle,
+          myWord: p.word,
+          alivePlayers: room.gameData.alivePlayers
+        });
       });
-    });
+
+      console.log(`[GAME] Music Room ${gameCode} started. Pair: ${pair.category} (Normal: ${pair.normal.title}, Spy: ${pair.spy.title}), Spies: ${spyCount}, Whiteboards: ${whiteboardCount}`);
+    } else {
+      // --- WORD GAME (existing behavior) ---
+      const wordbankLanguage = room.settings.wordbankLanguage || 'zh';
+      const availableCats = wordsData.categories.filter(c => (c.language || 'zh') === wordbankLanguage);
+      const fallbackCats = availableCats.length > 0 ? availableCats : wordsData.categories;
+      const selectedNames = room.settings.selectedCategories && room.settings.selectedCategories.length > 0
+          ? room.settings.selectedCategories
+          : fallbackCats.map(c => c.name);
+      const eligible = fallbackCats.filter(c => selectedNames.includes(c.name));
+      const pool = eligible.length > 0 ? eligible : fallbackCats;
+
+      const category = pool[Math.floor(Math.random() * pool.length)];
+      const catName = category.name;
+      
+      const wordSet = category.words[Math.floor(Math.random() * category.words.length)];
+      const shuffledSet = [...wordSet].sort(() => 0.5 - Math.random());
+      const normalWord = shuffledSet[0];
+      const spyWord = shuffledSet[1];
+
+      room.players.forEach((p, idx) => {
+        p.role = roles[idx];
+        p.word = p.role === 'WHITEBOARD' ? '' : (p.role === 'SPY' ? spyWord : normalWord);
+        p.isAlive = true;
+        
+        io.to(p.id).emit('game-started', {
+          gameState: room.gameState,
+          gameType: 'word',
+          myRole: p.role,
+          myWord: p.word,
+          alivePlayers: room.gameData.alivePlayers
+        });
+      });
+
+      console.log(`[GAME] Word Room ${gameCode} started. Category: ${catName}, Spies: ${spyCount}, Whiteboards: ${whiteboardCount}`);
+    }
 
     // Broadcast generic state change
     io.to(gameCode).emit('room-state-update', { 
       gameState: 'IN_GAME', 
       alivePlayers: room.gameData.alivePlayers 
     });
-    console.log(`[GAME] Room ${gameCode} started. Category: ${catName}, Spies: ${spyCount}, Whiteboards: ${whiteboardCount}`);
   });
 
   socket.on('submit-vote', ({ gameCode, targetUserId, myUserId }) => {

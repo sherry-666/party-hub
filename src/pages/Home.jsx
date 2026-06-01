@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from '../contexts/LanguageContext';
 
 const GameCard = ({ title, description, icon, path, comingSoon = false }) => {
   const navigate = useNavigate();
-  
+  const { t } = useTranslation();
+
   return (
-    <motion.div 
+    <motion.div
       className="game-card glass-card"
       whileHover={{ scale: 1.05, translateY: -10 }}
       whileTap={{ scale: 0.95 }}
@@ -17,39 +19,39 @@ const GameCard = ({ title, description, icon, path, comingSoon = false }) => {
       <h3>{title}</h3>
       <p>{description}</p>
       {comingSoon ? (
-        <span className="badge badge-soon">敬请期待</span>
+        <span className="badge badge-soon">{t('home.comingSoon')}</span>
       ) : (
-        <button className="btn btn-primary">立即开始</button>
+        <button className="btn btn-primary">{t('home.startNow')}</button>
       )}
     </motion.div>
   );
 };
 
 const Home = () => {
+  const { t } = useTranslation();
   return (
     <div className="home-container">
       <header className="hero-section animate-fade-in">
-        <h1 className="hero-title">聚会 <span>中心</span></h1>
-        <p className="hero-subtitle">数字聚会游戏的终极目的地。</p>
+        <h1 className="hero-title">{t('home.title1')} <span>{t('home.title2')}</span></h1>
+        <p className="hero-subtitle">{t('home.subtitle')}</p>
       </header>
-      
+
       <main className="game-grid container">
-        <GameCard 
-          title="谁是卧底"
-          description="在经典的推理与欺骗游戏中揭开潜伏在你们中间的卧底。"
+        <GameCard
+          title={t('home.spyTitle')}
+          description={t('home.spyDesc')}
           icon="🕵️‍♂️"
           path="/spy"
         />
-        <GameCard 
-          title="卧底 (Undercover)"
-          description="节奏快速的词项关联游戏，适合多人聚会。"
-          icon="🕶️"
-          path="/undercover"
-          comingSoon={true}
+        <GameCard
+          title={t('home.musicSpyTitle')}
+          description={t('home.musicSpyDesc')}
+          icon="🎵"
+          path="/spy-music"
         />
-        <GameCard 
-          title="你画我猜"
-          description="展示你的创意并猜出别人的绘画内容。"
+        <GameCard
+          title={t('home.drawTitle')}
+          description={t('home.drawDesc')}
           icon="🎨"
           path="/draw"
           comingSoon={true}

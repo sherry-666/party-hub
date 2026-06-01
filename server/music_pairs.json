@@ -1,24 +1,3 @@
 {
-  "songs": [
-    { "id": 1,  "title": "Sunny Groove",   "genre": "Pop",        "file": "pair_01_normal.wav" },
-    { "id": 2,  "title": "Midnight Drive",  "genre": "Pop",        "file": "pair_01_spy.wav"   },
-    { "id": 3,  "title": "Neon Pulse",      "genre": "Electronic", "file": "pair_02_normal.wav" },
-    { "id": 4,  "title": "Digital Rain",    "genre": "Electronic", "file": "pair_02_spy.wav"   },
-    { "id": 5,  "title": "Blue Note",       "genre": "Jazz",       "file": "pair_03_normal.wav" },
-    { "id": 6,  "title": "Velvet Lounge",   "genre": "Jazz",       "file": "pair_03_spy.wav"   },
-    { "id": 7,  "title": "Spring Waltz",    "genre": "Classical",  "file": "pair_04_normal.wav" },
-    { "id": 8,  "title": "Autumn Sonata",   "genre": "Classical",  "file": "pair_04_spy.wav"   },
-    { "id": 9,  "title": "Thunder Road",    "genre": "Rock",       "file": "pair_05_normal.wav" },
-    { "id": 10, "title": "Electric Storm",  "genre": "Rock",       "file": "pair_05_spy.wav"   },
-    { "id": 11, "title": "Rainy Café",      "genre": "Lo-Fi",      "file": "pair_06_normal.wav" },
-    { "id": 12, "title": "Starlit Study",   "genre": "Lo-Fi",      "file": "pair_06_spy.wav"   },
-    { "id": 13, "title": "Disco Fever",     "genre": "Funk",       "file": "pair_07_normal.wav" },
-    { "id": 14, "title": "Bass Groove",     "genre": "Funk",       "file": "pair_07_spy.wav"   },
-    { "id": 15, "title": "Ocean Waves",     "genre": "Ambient",    "file": "pair_08_normal.wav" },
-    { "id": 16, "title": "Forest Dawn",     "genre": "Ambient",    "file": "pair_08_spy.wav"   },
-    { "id": 17, "title": "Salsa Night",     "genre": "Latin",      "file": "pair_09_normal.wav" },
-    { "id": 18, "title": "Bossa Nova",      "genre": "Latin",      "file": "pair_09_spy.wav"   },
-    { "id": 19, "title": "Epic Quest",      "genre": "Cinematic",  "file": "pair_10_normal.wav" },
-    { "id": 20, "title": "Shadow Chase",    "genre": "Cinematic",  "file": "pair_10_spy.wav"   }
-  ]
+  "songs": []
 }

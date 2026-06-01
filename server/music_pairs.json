@@ -1,3 +1,18 @@
 {
-  "songs": []
+  "songs": [
+    { "id": 1,  "title": "Brazilian Phonk",         "genre": "Phonk",      "file": "absolutesound-brazilian-phonk-brazil-529761.mp3" },
+    { "id": 2,  "title": "Carnaval",                "genre": "Latin",      "file": "alec_koff-carnaval-484622.mp3" },
+    { "id": 3,  "title": "Dance Playful Night",     "genre": "Dance",      "file": "alexzavesa-dance-playful-night-510786.mp3" },
+    { "id": 4,  "title": "Brazilian Phonk II",      "genre": "Phonk",      "file": "apalonbeats-brazilian-phonk-phonk-music-512937.mp3" },
+    { "id": 5,  "title": "Powerful Percussion",     "genre": "Percussion", "file": "energysound-powerful-percussion-513717.mp3" },
+    { "id": 6,  "title": "Escape Your Love",        "genre": "Pop",        "file": "fassounds-escape-your-love-upbeat-fashion-pop-dance-412230.mp3" },
+    { "id": 7,  "title": "Water (Afro Pop)",        "genre": "Afro Pop",   "file": "kontraa-water-afro-pop-music-445661.mp3" },
+    { "id": 8,  "title": "Joyful Rhythm Walk",      "genre": "Funk",       "file": "lightbeatsmusic-joyful-rhythm-walk-funk-513936.mp3" },
+    { "id": 9,  "title": "Spring",                  "genre": "Ambient",    "file": "prettyjohn1-spring-508139.mp3" },
+    { "id": 10, "title": "Chinese New Year",        "genre": "Chinese",    "file": "studiokolomna-chinese-new-year-468916.mp3" },
+    { "id": 11, "title": "Birthday",                "genre": "Pop",        "file": "the_mountain-birthday-490600.mp3" },
+    { "id": 12, "title": "Original Song",           "genre": "Indie",      "file": "u_kg70d7oels-original-song-239607.mp3" },
+    { "id": 13, "title": "South Indian DJ",         "genre": "Indian",     "file": "vfs_world-south-indian-dj-love-song-trending-song-419435.mp3" },
+    { "id": 14, "title": "Chinese Lunar New Year",  "genre": "Chinese",    "file": "viacheslavstarostin-chinese-lunar-new-year-465871.mp3" }
+  ]
 }

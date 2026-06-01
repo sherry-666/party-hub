@@ -290,10 +290,14 @@ io.on('connection', (socket) => {
 
     if (gameType === 'music') {
       // --- MUSIC GAME ---
-      const pair = musicPairsData.pairs[Math.floor(Math.random() * musicPairsData.pairs.length)];
+      // Pick 2 distinct songs randomly from the pool
+      const songs = musicPairsData.songs;
+      const shuffled = [...songs].sort(() => 0.5 - Math.random());
+      const normalSong = shuffled[0];
+      const spySong = shuffled[1];
       const audioBasePath = '/audio/music-spy/';
-      const normalAudioUrl = audioBasePath + pair.normal.file;
-      const spyAudioUrl = audioBasePath + pair.spy.file;
+      const normalAudioUrl = audioBasePath + normalSong.file;
+      const spyAudioUrl = audioBasePath + spySong.file;
       const silenceUrl = audioBasePath + 'silence.wav';
 
       room.players.forEach((p, idx) => {
@@ -305,14 +309,14 @@ io.on('connection', (socket) => {
           p.word = '';
         } else if (p.role === 'SPY') {
           p.audioUrl = spyAudioUrl;
-          p.trackTitle = pair.spy.title;
-          p.word = pair.spy.title;
+          p.trackTitle = spySong.title;
+          p.word = spySong.title;
         } else {
           p.audioUrl = normalAudioUrl;
-          p.trackTitle = pair.normal.title;
-          p.word = pair.normal.title;
+          p.trackTitle = normalSong.title;
+          p.word = normalSong.title;
         }
-        
+
         io.to(p.id).emit('game-started', {
           gameState: room.gameState,
           gameType: 'music',
@@ -324,7 +328,7 @@ io.on('connection', (socket) => {
         });
       });
 
-      console.log(`[GAME] Music Room ${gameCode} started. Pair: ${pair.category} (Normal: ${pair.normal.title}, Spy: ${pair.spy.title}), Spies: ${spyCount}, Whiteboards: ${whiteboardCount}`);
+      console.log(`[GAME] Music Room ${gameCode} started. Normal: "${normalSong.title}" (${normalSong.genre}), Spy: "${spySong.title}" (${spySong.genre}), Spies: ${spyCount}, Whiteboards: ${whiteboardCount}`);
     } else {
       // --- WORD GAME (existing behavior) ---
       const wordbankLanguage = room.settings.wordbankLanguage || 'zh';

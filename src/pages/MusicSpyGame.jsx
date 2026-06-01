@@ -368,7 +368,6 @@ const MusicSpyGame = () => {
 
   const renderInGame = () => {
     const progressPct = audioDuration > 0 ? (audioProgress / audioDuration) * 100 : 0;
-    const isBlind = myRole === 'SPY' && surpriseMode;
     const isWhiteboard = myRole === 'WHITEBOARD';
     return (
       <motion.div initial={{opacity:0}} animate={{opacity:1}} className="ingame-container">
@@ -377,20 +376,15 @@ const MusicSpyGame = () => {
           <p>Alive: {alivePlayers.length}/{players.length}</p>
         </div>
 
-        {/* Audio Player Card */}
+        {/* Audio Player Card - no role shown, everyone sees the same UI */}
         <div className="music-player-card glass-card">
           {myAudioUrl && <audio ref={audioRef} src={myAudioUrl} onEnded={handleAudioEnded} preload="auto" />}
-          <div className="music-player-header">
-            <div className="music-role-badge" style={{background: myRole==='SPY'?'rgba(239,68,68,0.2)': myRole==='WHITEBOARD'?'rgba(148,163,184,0.2)':'rgba(99,102,241,0.2)', border: `1px solid ${myRole==='SPY'?'#ef4444':myRole==='WHITEBOARD'?'#94a3b8':'#6366f1'}`}}>
-              {isBlind ? '❓ Mystery Role' : roleLabel(myRole)}
-            </div>
-          </div>
 
           {isWhiteboard ? (
             <div className="whiteboard-message">
-              <div style={{fontSize:'3rem'}}>⬜</div>
-              <p style={{color:'var(--text-muted)',marginTop:'10px'}}>You are the Blank — no music for you!</p>
-              <p style={{fontSize:'0.85rem',color:'rgba(255,255,255,0.4)',marginTop:'5px'}}>Listen carefully to others' descriptions.</p>
+              <div style={{fontSize:'3rem'}}>🎵</div>
+              <p style={{color:'var(--text-muted)',marginTop:'10px'}}>No music assigned to you this round.</p>
+              <p style={{fontSize:'0.85rem',color:'rgba(255,255,255,0.4)',marginTop:'5px'}}>Listen to others talk about their song.</p>
             </div>
           ) : (
             <>

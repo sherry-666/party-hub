@@ -73,7 +73,7 @@ const SpyGameTemplate = () => {
       // Auto-reconnect if room code exists
       if (activeRoom) {
         console.log(`[TRACE] Emitting join-room for ${activeRoom} (User: ${userInfo.name}, ID: ${id})`);
-        socket.emit('join-room', { gameCode: activeRoom, userData: { name: userInfo.name, userId: id } });
+        socket.emit('join-room', { gameCode: activeRoom, userData: { name: userInfo.name, userId: id }, gameType: 'word' });
       }
     }
   }, []);
@@ -146,9 +146,10 @@ const SpyGameTemplate = () => {
       const code = payload && typeof payload === 'object' ? payload.code : null;
       const legacyMsg = typeof payload === 'string' ? payload : null;
       const errorKey = code === 'ROOM_NOT_FOUND' ? 'errors.roomNotFound' : 'errors.unknown';
-      const message = legacyMsg || t(errorKey);
+      const message = legacyMsg
+        || (code === 'WRONG_GAME_MODE' ? '该房间是「谁是卧底·音乐版」，请到音乐版页面加入。' : t(errorKey));
       showModal(t('common.error'), message);
-      if (code === 'ROOM_NOT_FOUND' || legacyMsg === '房间号不存在') {
+      if (code === 'ROOM_NOT_FOUND' || code === 'WRONG_GAME_MODE' || legacyMsg === '房间号不存在') {
         setCookie('active_room_code', '', -1); // Clear invalid room
       }
     });
@@ -268,7 +269,7 @@ const SpyGameTemplate = () => {
 
   const handleJoinGame = () => {
     if (gameCode.length === 4) {
-      socket.emit('join-room', { gameCode: gameCode.toUpperCase(), userData: { name: userName, userId } });
+      socket.emit('join-room', { gameCode: gameCode.toUpperCase(), userData: { name: userName, userId }, gameType: 'word' });
     }
   };
 

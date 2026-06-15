@@ -56,7 +56,7 @@ const MusicSpyGame = () => {
       setGameState('MENU');
       connectSocket();
       if (activeRoom) {
-        socket.emit('join-room', { gameCode: activeRoom, userData: { name: userInfo.name, userId: id } });
+        socket.emit('join-room', { gameCode: activeRoom, userData: { name: userInfo.name, userId: id }, gameType: 'music' });
       }
     }
   }, []);
@@ -152,9 +152,12 @@ const MusicSpyGame = () => {
 
     socket.on('error', payload => {
       const code = payload?.code;
-      const msg = typeof payload === 'string' ? payload : (code === 'ROOM_NOT_FOUND' ? 'Room not found' : 'Unknown error');
+      const msg = typeof payload === 'string' ? payload
+        : code === 'ROOM_NOT_FOUND' ? 'Room not found'
+        : code === 'WRONG_GAME_MODE' ? 'That room is a different game mode. Use the regular Who’s the Spy game for that code.'
+        : 'Unknown error';
       showModal('Error', msg);
-      if (code === 'ROOM_NOT_FOUND') setCookie('active_room_code_music', '', -1);
+      if (code === 'ROOM_NOT_FOUND' || code === 'WRONG_GAME_MODE') setCookie('active_room_code_music', '', -1);
     });
 
     socket.on('connect', () => console.log('[Music] Socket connected:', socket.id));
@@ -201,7 +204,7 @@ const MusicSpyGame = () => {
 
   const handleJoinGame = () => {
     if (gameCode.length === 4) {
-      socket.emit('join-room', { gameCode: gameCode.toUpperCase(), userData: { name: userName, userId } });
+      socket.emit('join-room', { gameCode: gameCode.toUpperCase(), userData: { name: userName, userId }, gameType: 'music' });
     }
   };
 

@@ -135,10 +135,23 @@ io.on('connection', (socket) => {
   });
 
   // --- Join Room ---
-  socket.on('join-room', ({ gameCode, userData }) => {
+  socket.on('join-room', ({ gameCode, userData, gameType }) => {
     const targetRoom = String(gameCode);
     console.log(`[JOIN] User ${userData.name} (${userData.userId}) joining room ${targetRoom}`);
-    
+
+    if (rooms[targetRoom]) {
+      // Reject joins from the wrong game mode (e.g. a word-game client trying to
+      // join a music room via a shared code). Without this, the music server would
+      // send the song title as `myWord` and the word client would render it as a prompt.
+      const requestedType = gameType || 'word';
+      const roomType = rooms[targetRoom].settings?.gameType || 'word';
+      if (requestedType !== roomType) {
+        console.log(`[JOIN] Rejected ${userData.name}: requested ${requestedType} room but ${targetRoom} is ${roomType}`);
+        socket.emit('error', { code: 'WRONG_GAME_MODE' });
+        return;
+      }
+    }
+
     // If joining a different room, remove from old ones
     removeFromAllRooms(userData.userId, targetRoom);
 
